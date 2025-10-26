@@ -1,91 +1,199 @@
-/* ==========
-   Global styles
-   Main layout using flexbox to keep the footer at the bottom
-   ========== */
+/* =============================
+    GLOBAL VARIABLES
+    Centralized color palette for consistent theme management
+    ============================= */
+:root {
+    --main-bg-color: #1f2833;
+    --main-text-color: #c5c6c7;
+    --primary-highlight-color: #66fcf1;
+    --secondary-highlight-color: #45a29e;
+    --footer-bg-color: #0b0c10;
+    --link-button-bg: #323b47;
+}
+
+/* =============================
+    BASE STYLES
+    Global layout and typography setup
+    ============================= */
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-  background-color: #1e2025; /* Dark background with a slight bluish tone */
-  color: #f0f0f0;            /* Light gray text for contrast */
-  font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;                /* Keeps footer at bottom */
+    margin: 0;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
 }
 
-/* Default links: uniform color and no underline */
+/* =============================
+    LINK STYLES
+    Animated underline and smooth hover color transition
+    ============================= */
 a {
-  color: #f0f0f0;
-  text-decoration: none;
+    color: var(--primary-highlight-color);
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
 }
 
-/* ==========
-   Main container
-   Responsive and occupies the space between header and footer
-   ========== */
+a:hover {
+    color: var(--secondary-highlight-color);
+}
+
+/* Subtle underline animation effect */
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-highlight-color);
+    transition: width 0.4s ease-out;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* Adjusts underline closer for inline list links */
+li a::after {
+    bottom: -2px;
+}
+
+/* =============================
+    CONTAINER
+    Centers main content and defines page width
+    ============================= */
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  /* Vertically centered content */
-  width: 80%;
-  max-width: 900px;         /* Prevents excessive width on large screens */
-  margin: 0 auto;           /* Centers the container horizontally */
-  flex-grow: 1;             /* Expands to fill the available space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    flex-grow: 1;
+    padding: 20px 0;
 }
 
-/* ==========
-   Header: centered with profile picture
-   ========== */
+/* =============================
+    HEADINGS
+    Visual hierarchy and readability
+    ============================= */
+h1,
+h2 {
+    text-align: center;
+    color: var(--main-text-color);
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+h1 {
+    font-size: 2.5em;
+    letter-spacing: 1.5px;
+}
+
+h3 {
+    color: var(--primary-highlight-color);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* =============================
+    HEADER
+    Profile section with circular image and light highlight
+    ============================= */
 header {
-  text-align: center;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 header img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;       /* Circular profile picture */
-  border: 3px solid #d7c5ae95;
-  margin-top: 75px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-highlight-color);
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
+    margin-top: 50px;
+    object-fit: cover;
 }
 
-h1, h2 {
-  text-align: center;
+/* =============================
+    MAIN CONTENT
+    Text and list styling for readable and interactive layout
+    ============================= */
+main p {
+    text-align: justify;
+    max-width: 700px;
+    margin: 15px auto;
 }
 
-/* ==========
-   Footer: pinned at the bottom with social icons
-   ========== */
+main ul {
+    list-style: none;                 /* Cleaner list appearance */
+    padding: 0;
+    max-width: 700px;
+    margin: 15px auto 30px;
+}
+
+main li {
+    background-color: #27303d;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-left: 5px solid var(--secondary-highlight-color);
+    border-radius: 4px;
+    font-size: 1.05em;
+    transition: border-width 0.3s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Hover emphasizes item and creates interactive feedback */
+main li:hover {
+    cursor: pointer;
+    border-left-width: 12px;
+    border-color: var(--primary-highlight-color);
+    box-shadow: 0 0 7px rgba(102, 252, 241, 0.4);
+}
+
+/* =============================
+    FOOTER
+    Sticky footer with social icons and hover animation
+    ============================= */
 footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000;
-  width: 100%;
-  margin-top: auto;         /* Pushes footer to the bottom */
-  padding: 10px 0;
-  gap: 50px;                /* Space between icons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--footer-bg-color);
+    width: 100%;
+    margin-top: auto;                 /* Pushes footer down */
+    padding: 15px 0;
+    gap: 30px;
+    border-top: 1px solid var(--secondary-highlight-color);
 }
 
 footer a {
-  text-align: center;
-  color: #f0f0f0;
-  text-decoration: none;
+    text-align: center;
+    color: var(--main-text-color);
+    transition: transform 0.2s ease;
+}
+
+/* Disables underline effect from global links */
+footer a::after {
+    content: none;
 }
 
 footer a:hover {
-  color: #3498db;           /* Highlight on hover */
+    color: var(--primary-highlight-color);
+    transform: translateY(-3px);
 }
 
-footer img {
-  width: 25px;
-  height: 25px;
+footer i {
+    font-size: 1.5em;
 }
 
 footer p {
-  margin: 2px;
-  font-size: 10pt;
-}
-
-/* Links inside lists get highlighted on hover */
-li a:hover {
-  color: #3498db;
+    margin: 2px;
+    font-size: 0.8em;
+    color: var(--main-text-color);
 }
